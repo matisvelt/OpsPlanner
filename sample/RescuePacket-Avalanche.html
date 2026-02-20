@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Rescue Packet - Avalanche Aftermath (Training)</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f7f7f7; color: #1b1b1b; padding: 24px; }
+    .banner { background: #1b2a41; color: #fff; padding: 8px 12px; font-weight: 700; }
+    .section { background: #fff; padding: 16px; margin: 16px 0; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+    h2 { margin: 0 0 8px 0; font-size: 18px; }
+    pre { white-space: pre-wrap; font-family: inherit; }
+  </style>
+</head>
+<body>
+  <div class="banner">TRAINING / UNCLASSIFIED</div>
+  <h1>Rescue Packet</h1>
+  <div class="section"><h2>Scenario</h2><pre>Avalanche Aftermath: Missing Hiker Recovery (Training Case)</pre></div>
+
+  <div class="section"><h2>1) Incident Input</h2><pre>Incident Summary (Training):
+Title: Avalanche Aftermath: Missing Hiker Recovery (Training Case)
+Context: A solo hiker is overdue after an avalanche event in a mountainous region. Last known area is an approximate polygon spanning Sectors A/B/C based on cell ping and witness report. Weather is deteriorating (wind, snowfall) and daylight is limited.
+Last Known Area: Polygon across Sectors A/B/C with uncertainty gradient toward Sector C
+Time Last Seen: ~4 hours ago (training estimate)
+Daylight Window: Approx. 3 hours of usable light remaining (training estimate)
+Weather: Wind increasing, snowfall forecast; visibility trending downward.
+Comms: Patchy coverage; reliable only in lower elevations and ridgeline gaps.
+Medical Risk: Hypothermia risk increases with time; survivability window uncertain.
+Note: This draft is for planning and governance only; it does not include procedural rescue actions.</pre></div>
+
+  <div class="section"><h2>2) Constraints & Authorities</h2><pre>Legal Authority: Search authorized under regional SAR protocol with park service oversight.
+Safety Policy: No entry into high-hazard zones without explicit Safety Officer gate approval.
+Time Windows: Primary search window: daylight remaining; night ops require separate approval.
+Weather/Aviation Restrictions: Aviation restricted above wind index threshold; whiteout risk.
+Medical Constraints: Rapid transfer to medical care required if located; triage protocols apply.</pre></div>
+
+  <div class="section"><h2>3) Information Requirements</h2><pre>- Last known location confidence | Indicator: Updated cell ping or witness validation | Priority: High | Status: Open
+- Victim survivability time window | Indicator: Medical lead estimate vs exposure | Priority: High | Status: Open
+- Avalanche hazard index by sector | Indicator: Avalanche bulletin + local observation | Priority: High | Status: Open
+- Access time to each sector | Indicator: Route status + mobility estimate | Priority: Medium | Status: Open
+- Comms reliability by sector | Indicator: Radio checks + relay test | Priority: Medium | Status: Open
+- Helicopter constraints and go/no-go factors | Indicator: Aviation liaison update | Priority: Medium | Status: Open
+- Medical evacuation constraints | Indicator: Medical lead + transport availability | Priority: Medium | Status: Open
+Derived Needs: Clarify sector probability weights and confirm road access status before committing resources.</pre></div>
+
+  <div class="section"><h2>4) Environment/System Model</h2><pre>- Sector A | Size: Ridge bowl | Access: 3 | Hazard: 4 | Visibility: 2 | Comms: 0.60 | Time: 1.5-3.0 hrs | Weight: 0.35
+- Sector B | Size: Tree line traverse | Access: 4 | Hazard: 3 | Visibility: 2 | Comms: 0.50 | Time: 2.0-4.0 hrs | Weight: 0.25
+- Sector C | Size: Upper basin | Access: 5 | Hazard: 5 | Visibility: 1 | Comms: 0.30 | Time: 3.0-6.0 hrs | Weight: 0.20
+- Sector D | Size: Lower drainage | Access: 2 | Hazard: 2 | Visibility: 3 | Comms: 0.70 | Time: 1.0-2.5 hrs | Weight: 0.15
+- Sector E | Size: Trailhead area | Access: 1 | Hazard: 1 | Visibility: 4 | Comms: 0.90 | Time: 0.5-1.0 hrs | Weight: 0.05
+Dependencies:
+- Sector C access depends on Road 2 open
+- Air support availability depends on wind index below threshold
+Uncertainty Map Notes: Uncertainty highest in Sector C due to limited visibility and comms gaps.</pre></div>
+
+  <div class="section"><h2>5) Risk Register + Assumptions</h2><pre>- [R1] Secondary avalanche in Sector C | L:4 I:5 | Mitigation: Gate entry on hazard index and visibility updates | Owner: Safety Officer
+- [R2] Comms relay failure in upper sectors | L:3 I:4 | Mitigation: Establish relay plan and periodic check-ins | Owner: Comms & Tracking
+- [R3] Access route blocked by snowfall | L:3 I:4 | Mitigation: Alternate route planning and mobility staging | Owner: Mobility/Logistics
+- [R4] Survivability window shorter than expected | L:3 I:5 | Mitigation: Prioritize high-probability sectors and medical readiness | Owner: Medical Lead
+Assumptions:
+- Helicopter availability remains uncertain (Confidence: LOW, Fragility: VOLATILE)
+- Sector probability weights remain stable for 2 hours (Confidence: MEDIUM, Fragility: FRAGILE)
+- Road 2 remains open (Confidence: LOW, Fragility: FRAGILE)</pre></div>
+
+  <div class="section"><h2>6) COA Builder</h2><pre>COA Summary (Abstract, Non-Tactical):
+
+Ground-first prioritized by probability distribution
+Objective: Allocate ground teams to highest-probability sectors while preserving safety gates.
+Phases:
+- Phase 0: Confirm access, comms, and hazard updates (Timing: 0-30 min)
+- Phase 1: Search Sector A then B based on probability weights (Timing: 30-120 min)
+- Phase 2: Expand to Sector C/D if gates permit (Timing: 120-240 min)
+- Phase 3: Consolidate findings and transition to handover (Timing: 240+ min)
+Safety Gates: Avalanche risk gate, Comms blackout gate
+Key Assumptions: Ground access remains viable for Sectors A/B
+Risks: Time loss if access blocked
+Info Needs: Updated probability weights by sector
+Assessment Measures: Coverage of A/B within first 2 hours
+
+Safety-first constrained search (minimize responder exposure)
+Objective: Limit exposure by restricting search to low-hazard sectors unless gates are cleared.
+Phases:
+- Phase 0: Confirm gates and hazard updates (Timing: 0-30 min)
+- Phase 1: Focus on low-hazard sectors D/E (Timing: 30-120 min)
+- Phase 2: Conditional expansion to A/B with safety concurrence (Timing: 120-240 min)
+- Phase 3: Reassess and transition to recovery/handover (Timing: 240+ min)
+Safety Gates: Weather cutoff, Avalanche risk gate
+Key Assumptions: Low-hazard sectors still allow meaningful coverage
+Risks: Lower probability of contact if high-probability sectors deferred
+Info Needs: Hazard updates every 30 minutes
+Assessment Measures: Responder exposure kept below threshold</pre></div>
+
+  <div class="section"><h2>7) Rehearsal / Branch-Sequel</h2><pre>Branch Cards:
+- Event: Weather worsens faster than forecast
+  Indicator: Wind gusts exceed forecast trend
+  Trigger: Wind index crosses threshold
+  Decision: BRANCH
+  Role: Safety Officer
+  Time Impact: 1.0 hrs
+  Risk Impact: 4
+  Safety Gate: Weather cutoff
+
+- Event: Secondary avalanche risk rises
+  Indicator: Avalanche bulletin escalates
+  Trigger: Hazard index >= 4
+  Decision: REALLOCATE
+  Role: Safety Officer
+  Time Impact: 1.0 hrs
+  Risk Impact: 5
+  Safety Gate: Avalanche risk gate</pre></div>
+
+  <div class="section"><h2>8) Decision & Safety Gates</h2><pre>- Weather cutoff | Threshold: Wind index >= threshold or visibility <= 2 | Action: Pause/Branch | Owner: Safety Officer
+- Avalanche risk gate | Threshold: Hazard index >= 4 in a sector | Action: Stop/Go by sector | Owner: Safety Officer
+- Comms blackout gate | Threshold: No check-in for 30 min | Action: Pause and re-establish comms | Owner: Comms & Tracking
+- Medical threshold gate | Threshold: Survivability window < 2 hours | Action: Reprioritize and compress timeline | Owner: Medical Lead
+Stop/Go Criteria: Stop or branch if any gate triggers beyond threshold; continue only with Safety Officer concurrence.</pre></div>
+
+  <div class="section"><h2>9) Team Responsibilities</h2><pre>- Task: Set incident priorities | Role: Team Lead (Incident Commander) | A | Details: Approve COA selection
+- Task: Manage safety thresholds | Role: Safety Officer (Avalanche Hazard Lead) | R | Details: Own stop/go criteria
+- Task: Update information requirements | Role: Intel/Info Officer | R | Details: Track indicators and warnings
+- Task: Coordinate tasking and timing | Role: Ops Coordinator | R | Details: Sequence phases
+- Task: Maintain comms and tracking | Role: Comms & Tracking | R | Details: Check-in schedule</pre></div>
+
+  <div class="section"><h2>10) Mission Statement + CONOPS</h2><pre>Mission Statement:
+Rescue Cell will conduct coordinated search and recovery of missing hiker within Approx. 3 hours of usable light remaining (training estimate) across A, B, C, D, E under Aviation restricted above wind index threshold; whiteout risk. in order to achieve the end state: locate, stabilize, and handover.
+
+CONOPS Phase 0: Phase 0 (0-30 min): Confirm constraints, establish comms plan, validate latest intel.
+CONOPS Phase 1: Phase 1 (30-120 min): Execute prioritized sector search sequence per COA with safety gates.
+CONOPS Phase 2: Phase 2 (120-240 min): Expand to lower-probability sectors; reassess based on indicators.
+CONOPS Phase 3: Phase 3 (240+ min): Consolidate findings, transition to recovery/handover.
+Timeline: Initial decision within 30 minutes; hourly reassessment or upon trigger.</pre></div>
+
+  <div class="section"><h2>11) Assessment & Feedback Loop</h2><pre>MOEs: Time to locate, adherence to safety gates, probability-weighted coverage.
+MOPs: Check-in compliance, comms uptime, gate trigger response times.
+Review Triggers: Any gate trigger, major intel shift, or weather severity change.
+Learning Log: Capture decisions, what changed, and why for after-action review.</pre></div>
+</body>
+</html>
