@@ -28,6 +28,7 @@ public class InfoRequirementsStepPane extends AbstractStepPane {
     super("3", "3) Information Requirements + Indicators");
     table.setEditable(true);
     derivedNeedsArea.setPrefRowCount(3);
+    buildLayout(buildContent());
   }
 
   @Override
@@ -57,14 +58,15 @@ public class InfoRequirementsStepPane extends AbstractStepPane {
     table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
     Button addButton = new Button("Add");
-    addButton.setOnAction(event -> items.add(new InfoRequirement("New requirement", "Indicator", "Medium", "Open")));
+    addButton.setOnAction(FxUtil.debugAction("Info Requirements - Add", () ->
+      items.add(new InfoRequirement("New requirement", "Indicator", "Medium", "Open"))));
     Button removeButton = new Button("Remove");
-    removeButton.setOnAction(event -> {
+    removeButton.setOnAction(FxUtil.debugAction("Info Requirements - Remove", () -> {
       InfoRequirement selected = table.getSelectionModel().getSelectedItem();
       if (selected != null) {
         items.remove(selected);
       }
-    });
+    }));
 
     HBox buttons = new HBox(8, addButton, removeButton);
 

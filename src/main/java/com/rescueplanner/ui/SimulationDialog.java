@@ -70,7 +70,7 @@ public class SimulationDialog {
     ProgressIndicator indicator = new ProgressIndicator();
     indicator.setVisible(false);
 
-    runButton.setOnAction(event -> {
+    runButton.setOnAction(FxUtil.debugAction("Simulation - Run", () -> {
       COA coa = coaBox.getSelectionModel().getSelectedItem();
       int runs;
       long seed;
@@ -115,7 +115,7 @@ public class SimulationDialog {
       });
 
       new Thread(task).start();
-    });
+    }));
 
     GridPane form = new GridPane();
     form.setHgap(10);

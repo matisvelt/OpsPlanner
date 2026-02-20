@@ -32,6 +32,9 @@ public class MainApp extends Application {
 
   @Override
   public void start(Stage stage) {
+    System.out.println("JavaFX runtime: " + System.getProperty("javafx.runtime.version"));
+    System.out.println("JavaFX build: " + System.getProperty("javafx.runtime.build"));
+
     scenario = ScenarioFactory.prefilledTrainingScenario();
 
     steps.add(new IncidentStepPane());
@@ -67,6 +70,7 @@ public class MainApp extends Application {
     stage.setTitle("Rescue Cell Planner (Training)");
     stage.setScene(scene);
     stage.show();
+    stage.toFront();
   }
 
   private VBox buildHeader(Stage stage) {
@@ -84,12 +88,12 @@ public class MainApp extends Application {
     toolBar.getItems().addAll(newButton, loadButton, saveButton, new Separator(), exportHtmlButton, exportPdfButton,
       new Separator(), runSimButton);
 
-    newButton.setOnAction(event -> {
+    newButton.setOnAction(FxUtil.debugAction("New scenario", () -> {
       scenario = ScenarioFactory.prefilledTrainingScenario();
       rebindScenario();
-    });
+    }));
 
-    loadButton.setOnAction(event -> {
+    loadButton.setOnAction(FxUtil.debugAction("Load JSON", () -> {
       FileChooser chooser = new FileChooser();
       chooser.setTitle("Load Scenario JSON");
       chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON", "*.json"));
@@ -102,9 +106,9 @@ public class MainApp extends Application {
           showAlert("Load failed", ex.getMessage());
         }
       }
-    });
+    }));
 
-    saveButton.setOnAction(event -> {
+    saveButton.setOnAction(FxUtil.debugAction("Save JSON", () -> {
       saveCurrentStep();
       FileChooser chooser = new FileChooser();
       chooser.setTitle("Save Scenario JSON");
@@ -117,9 +121,9 @@ public class MainApp extends Application {
           showAlert("Save failed", ex.getMessage());
         }
       }
-    });
+    }));
 
-    exportHtmlButton.setOnAction(event -> {
+    exportHtmlButton.setOnAction(FxUtil.debugAction("Export HTML", () -> {
       saveCurrentStep();
       draftOrchestrator.generateAll(scenario);
       FileChooser chooser = new FileChooser();
@@ -133,9 +137,9 @@ public class MainApp extends Application {
           showAlert("Export failed", ex.getMessage());
         }
       }
-    });
+    }));
 
-    exportPdfButton.setOnAction(event -> {
+    exportPdfButton.setOnAction(FxUtil.debugAction("Export PDF", () -> {
       saveCurrentStep();
       draftOrchestrator.generateAll(scenario);
       FileChooser chooser = new FileChooser();
@@ -149,12 +153,12 @@ public class MainApp extends Application {
           showAlert("Export failed", ex.getMessage());
         }
       }
-    });
+    }));
 
-    runSimButton.setOnAction(event -> {
+    runSimButton.setOnAction(FxUtil.debugAction("Run Simulation", () -> {
       saveCurrentStep();
       SimulationDialog.show(stage, scenario, simulationCoordinator);
-    });
+    }));
 
     VBox header = new VBox(banner, toolBar);
     return header;

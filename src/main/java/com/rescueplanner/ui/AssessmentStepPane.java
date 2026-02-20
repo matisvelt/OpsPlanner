@@ -20,6 +20,7 @@ public class AssessmentStepPane extends AbstractStepPane {
     mopsArea.setPrefRowCount(2);
     reviewArea.setPrefRowCount(2);
     learningArea.setPrefRowCount(3);
+    buildLayout(buildContent());
   }
 
   @Override

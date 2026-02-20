@@ -115,9 +115,10 @@ public class RescuePacketExporter {
   }
 
   private void addLines(List<String> lines, String title, String body) {
-    lines.add("\n" + title);
+    lines.add("");
+    lines.add(title);
     if (body != null) {
-      for (String line : body.split("\\r?\\n")) {
+      for (String line : body.split("\\r?\\n", -1)) {
         lines.add(line);
       }
     }
@@ -126,11 +127,12 @@ public class RescuePacketExporter {
   private List<String> wrapLines(List<String> lines, int max) {
     List<String> wrapped = new ArrayList<>();
     for (String line : lines) {
-      if (line.length() <= max) {
-        wrapped.add(line);
+      String safeLine = sanitizePdfText(line);
+      if (safeLine.length() <= max) {
+        wrapped.add(safeLine);
         continue;
       }
-      String remaining = line;
+      String remaining = safeLine;
       while (remaining.length() > max) {
         int breakAt = remaining.lastIndexOf(' ', max);
         if (breakAt < 0) {
@@ -144,6 +146,26 @@ public class RescuePacketExporter {
       }
     }
     return wrapped;
+  }
+
+  private String sanitizePdfText(String input) {
+    if (input == null || input.isEmpty()) {
+      return "";
+    }
+    StringBuilder sb = new StringBuilder(input.length());
+    for (int i = 0; i < input.length(); i++) {
+      char ch = input.charAt(i);
+      if (ch == '\t') {
+        sb.append("  ");
+        continue;
+      }
+      if (ch < 0x20 || (ch >= 0x7F && ch < 0xA0)) {
+        sb.append(' ');
+        continue;
+      }
+      sb.append(ch);
+    }
+    return sb.toString();
   }
 
   private String escapeHtml(String input) {

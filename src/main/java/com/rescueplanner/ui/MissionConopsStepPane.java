@@ -24,6 +24,7 @@ public class MissionConopsStepPane extends AbstractStepPane {
     phase2Area.setPrefRowCount(2);
     phase3Area.setPrefRowCount(2);
     timelineArea.setPrefRowCount(2);
+    buildLayout(buildContent());
   }
 
   @Override

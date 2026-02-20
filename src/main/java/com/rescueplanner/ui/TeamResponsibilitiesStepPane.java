@@ -27,6 +27,7 @@ public class TeamResponsibilitiesStepPane extends AbstractStepPane {
     super("9", "9) Team Responsibilities");
     table.setEditable(true);
     notesArea.setPrefRowCount(3);
+    buildLayout(buildContent());
   }
 
   @Override
@@ -52,14 +53,15 @@ public class TeamResponsibilitiesStepPane extends AbstractStepPane {
     table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
     Button addButton = new Button("Add Entry");
-    addButton.setOnAction(event -> items.add(new RaciEntry("Task", "Role", ResponsibilityType.R, "")));
+    addButton.setOnAction(FxUtil.debugAction("Team Responsibilities - Add Entry", () ->
+      items.add(new RaciEntry("Task", "Role", ResponsibilityType.R, ""))));
     Button removeButton = new Button("Remove Entry");
-    removeButton.setOnAction(event -> {
+    removeButton.setOnAction(FxUtil.debugAction("Team Responsibilities - Remove Entry", () -> {
       RaciEntry selected = table.getSelectionModel().getSelectedItem();
       if (selected != null) {
         items.remove(selected);
       }
-    });
+    }));
 
     HBox buttons = new HBox(8, addButton, removeButton);
 

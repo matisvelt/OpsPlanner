@@ -26,30 +26,30 @@ public abstract class AbstractStepPane extends VBox implements StepPane {
     setSpacing(12);
     setPadding(new Insets(16));
 
+    generateButton.setOnAction(FxUtil.debugAction(title + " - Generate Draft", () -> {
+      saveToScenario();
+      TraceabilityRecord record = onGenerateDraft();
+      if (record != null) {
+        traceabilityConsumer.accept(record);
+      }
+    }));
+  }
+
+  protected abstract Node buildContent();
+
+  protected abstract TraceabilityRecord onGenerateDraft();
+
+  protected void buildLayout(Node content) {
     Label titleLabel = new Label(title);
     titleLabel.getStyleClass().add("step-title");
-
-    Node content = buildContent();
 
     HBox actions = new HBox(12, generateButton);
 
     draftArea.setPromptText("Draft output for this step");
     draftArea.setPrefRowCount(6);
 
-    getChildren().addAll(titleLabel, content, actions, new Label("Draft Output"), draftArea);
-
-    generateButton.setOnAction(event -> {
-      saveToScenario();
-      TraceabilityRecord record = onGenerateDraft();
-      if (record != null) {
-        traceabilityConsumer.accept(record);
-      }
-    });
+    getChildren().setAll(titleLabel, content, actions, new Label("Draft Output"), draftArea);
   }
-
-  protected abstract Node buildContent();
-
-  protected abstract TraceabilityRecord onGenerateDraft();
 
   @Override
   public String getStepId() {

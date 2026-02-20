@@ -32,6 +32,7 @@ public class RehearsalStepPane extends AbstractStepPane {
     super("7", "7) Rehearsal / Branch-Sequel Playthrough");
     table.setEditable(true);
     branchCardsArea.setPrefRowCount(6);
+    buildLayout(buildContent());
   }
 
   @Override
@@ -73,14 +74,15 @@ public class RehearsalStepPane extends AbstractStepPane {
     table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
     Button addButton = new Button("Add Event");
-    addButton.setOnAction(event -> items.add(new RehearsalEvent("E#", "New event")));
+    addButton.setOnAction(FxUtil.debugAction("Rehearsal - Add Event", () ->
+      items.add(new RehearsalEvent("E#", "New event"))));
     Button removeButton = new Button("Remove Event");
-    removeButton.setOnAction(event -> {
+    removeButton.setOnAction(FxUtil.debugAction("Rehearsal - Remove Event", () -> {
       RehearsalEvent selected = table.getSelectionModel().getSelectedItem();
       if (selected != null) {
         items.remove(selected);
       }
-    });
+    }));
 
     HBox buttons = new HBox(8, addButton, removeButton);
 

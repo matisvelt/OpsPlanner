@@ -42,6 +42,7 @@ public class COAStepPane extends AbstractStepPane {
     risksArea.setPrefRowCount(2);
     infoNeedsArea.setPrefRowCount(2);
     assessmentArea.setPrefRowCount(2);
+    buildLayout(buildContent());
   }
 
   @Override
@@ -65,20 +66,21 @@ public class COAStepPane extends AbstractStepPane {
     coaTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
     Button addButton = new Button("Add COA");
-    addButton.setOnAction(event -> coaItems.add(new COA("COA-#", "New COA")));
+    addButton.setOnAction(FxUtil.debugAction("COA Builder - Add COA", () ->
+      coaItems.add(new COA("COA-#", "New COA"))));
     Button removeButton = new Button("Remove COA");
-    removeButton.setOnAction(event -> {
+    removeButton.setOnAction(FxUtil.debugAction("COA Builder - Remove COA", () -> {
       COA selected = coaTable.getSelectionModel().getSelectedItem();
       if (selected != null) {
         coaItems.remove(selected);
       }
-    });
+    }));
     Button defaultsButton = new Button("Generate Default COAs");
-    defaultsButton.setOnAction(event -> {
+    defaultsButton.setOnAction(FxUtil.debugAction("COA Builder - Generate Defaults", () -> {
       coaItems.setAll(ScenarioFactory.defaultCoas());
       coaTable.getSelectionModel().selectFirst();
       loadCurrentCoa();
-    });
+    }));
 
     HBox buttons = new HBox(8, addButton, removeButton, defaultsButton);
 

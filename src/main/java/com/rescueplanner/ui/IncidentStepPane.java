@@ -25,6 +25,7 @@ public class IncidentStepPane extends AbstractStepPane {
     weatherArea.setPrefRowCount(2);
     commsArea.setPrefRowCount(2);
     medicalArea.setPrefRowCount(2);
+    buildLayout(buildContent());
   }
 
   @Override

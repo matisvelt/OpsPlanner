@@ -35,6 +35,7 @@ public class EnvironmentStepPane extends AbstractStepPane {
     table.setEditable(true);
     dependenciesArea.setPrefRowCount(3);
     uncertaintyArea.setPrefRowCount(3);
+    buildLayout(buildContent());
   }
 
   @Override
@@ -80,14 +81,15 @@ public class EnvironmentStepPane extends AbstractStepPane {
     table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
     Button addButton = new Button("Add");
-    addButton.setOnAction(event -> items.add(new Sector("New")));
+    addButton.setOnAction(FxUtil.debugAction("Environment - Add Sector", () ->
+      items.add(new Sector("New"))));
     Button removeButton = new Button("Remove");
-    removeButton.setOnAction(event -> {
+    removeButton.setOnAction(FxUtil.debugAction("Environment - Remove Sector", () -> {
       Sector selected = table.getSelectionModel().getSelectedItem();
       if (selected != null) {
         items.remove(selected);
       }
-    });
+    }));
 
     HBox buttons = new HBox(8, addButton, removeButton);
 

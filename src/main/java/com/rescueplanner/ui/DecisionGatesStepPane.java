@@ -28,6 +28,7 @@ public class DecisionGatesStepPane extends AbstractStepPane {
     super("8", "8) Decision & Safety Gates");
     table.setEditable(true);
     criteriaArea.setPrefRowCount(3);
+    buildLayout(buildContent());
   }
 
   @Override
@@ -53,14 +54,15 @@ public class DecisionGatesStepPane extends AbstractStepPane {
     table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
     Button addButton = new Button("Add Gate");
-    addButton.setOnAction(event -> items.add(new SafetyGate("New Gate", "Threshold", "Action", "Owner")));
+    addButton.setOnAction(FxUtil.debugAction("Decision Gates - Add Gate", () ->
+      items.add(new SafetyGate("New Gate", "Threshold", "Action", "Owner"))));
     Button removeButton = new Button("Remove Gate");
-    removeButton.setOnAction(event -> {
+    removeButton.setOnAction(FxUtil.debugAction("Decision Gates - Remove Gate", () -> {
       SafetyGate selected = table.getSelectionModel().getSelectedItem();
       if (selected != null) {
         items.remove(selected);
       }
-    });
+    }));
 
     HBox buttons = new HBox(8, addButton, removeButton);
 

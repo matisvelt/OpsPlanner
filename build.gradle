@@ -4,6 +4,8 @@ plugins {
   id 'java'
 }
 
+version = '1.0.0'
+
 repositories {
   mavenCentral()
 }
@@ -21,8 +23,53 @@ application {
 }
 
 javafx {
-  version = '17.0.2'
+  version = '17.0.10'
   modules = ['javafx.controls']
+}
+
+tasks.register('runSw', JavaExec) {
+  group = 'application'
+  description = 'Run with software rendering to debug JavaFX native crashes on macOS.'
+  classpath = sourceSets.main.runtimeClasspath
+  mainClass.set(application.mainClass)
+  jvmArgs '-Dprism.order=sw', '-Dprism.verbose=true'
+}
+
+def jpackageInputDir = layout.buildDirectory.dir('jpackage-input')
+def jpackageOutputDir = layout.buildDirectory.dir('jpackage')
+
+tasks.register('copyJpackageInput', Copy) {
+  dependsOn tasks.named('jar')
+  doFirst {
+    delete(jpackageInputDir)
+  }
+  from(configurations.runtimeClasspath)
+  from(tasks.named('jar'))
+  into(jpackageInputDir)
+}
+
+tasks.register('packageApp', Exec) {
+  group = 'distribution'
+  description = 'Create a macOS .app bundle via jpackage.'
+  dependsOn tasks.named('copyJpackageInput')
+  doFirst {
+    def inputDir = jpackageInputDir.get().asFile
+    def outputDir = jpackageOutputDir.get().asFile
+    delete(outputDir)
+    outputDir.mkdirs()
+
+    def jarFile = tasks.named('jar', Jar).get().archiveFile.get().asFile
+    commandLine 'jpackage',
+      '--type', 'app-image',
+      '--input', inputDir.absolutePath,
+      '--dest', outputDir.absolutePath,
+      '--name', 'Rescue Cell Planner',
+      '--app-version', project.version.toString(),
+      '--main-jar', jarFile.name,
+      '--main-class', application.mainClass.get(),
+      '--module-path', inputDir.absolutePath,
+      '--add-modules', 'javafx.controls'
+  }
 }
 
 test {

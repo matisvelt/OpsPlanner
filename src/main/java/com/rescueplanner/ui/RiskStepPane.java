@@ -28,6 +28,7 @@ public class RiskStepPane extends AbstractStepPane {
     super("5", "5) Risk Register + Assumptions");
     riskTable.setEditable(true);
     assumptionTable.setEditable(true);
+    buildLayout(buildContent());
   }
 
   @Override
@@ -61,14 +62,15 @@ public class RiskStepPane extends AbstractStepPane {
     riskTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
     Button addRisk = new Button("Add Risk");
-    addRisk.setOnAction(event -> riskItems.add(new RiskItem("R#", "New risk", 3, 3, "Mitigation", "Owner")));
+    addRisk.setOnAction(FxUtil.debugAction("Risk Register - Add Risk", () ->
+      riskItems.add(new RiskItem("R#", "New risk", 3, 3, "Mitigation", "Owner"))));
     Button removeRisk = new Button("Remove Risk");
-    removeRisk.setOnAction(event -> {
+    removeRisk.setOnAction(FxUtil.debugAction("Risk Register - Remove Risk", () -> {
       RiskItem selected = riskTable.getSelectionModel().getSelectedItem();
       if (selected != null) {
         riskItems.remove(selected);
       }
-    });
+    }));
 
     HBox riskButtons = new HBox(8, addRisk, removeRisk);
 
@@ -89,14 +91,15 @@ public class RiskStepPane extends AbstractStepPane {
     assumptionTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
     Button addAssumption = new Button("Add Assumption");
-    addAssumption.setOnAction(event -> assumptions.add(new Assumption("New assumption", ConfidenceLevel.MEDIUM, FragilityTag.FRAGILE)));
+    addAssumption.setOnAction(FxUtil.debugAction("Risk Register - Add Assumption", () ->
+      assumptions.add(new Assumption("New assumption", ConfidenceLevel.MEDIUM, FragilityTag.FRAGILE))));
     Button removeAssumption = new Button("Remove Assumption");
-    removeAssumption.setOnAction(event -> {
+    removeAssumption.setOnAction(FxUtil.debugAction("Risk Register - Remove Assumption", () -> {
       Assumption selected = assumptionTable.getSelectionModel().getSelectedItem();
       if (selected != null) {
         assumptions.remove(selected);
       }
-    });
+    }));
 
     HBox assumptionButtons = new HBox(8, addAssumption, removeAssumption);
 

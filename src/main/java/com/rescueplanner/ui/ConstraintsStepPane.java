@@ -22,6 +22,7 @@ public class ConstraintsStepPane extends AbstractStepPane {
     timeWindowsArea.setPrefRowCount(2);
     weatherAviationArea.setPrefRowCount(2);
     medicalConstraintsArea.setPrefRowCount(2);
+    buildLayout(buildContent());
   }
 
   @Override
